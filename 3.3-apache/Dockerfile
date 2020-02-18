@@ -6,8 +6,7 @@ ARG COMMIT=v3.3/dev
 ARG BRANCH=v3.3/dev
 ARG REPO=SpiderLabs/owasp-modsecurity-crs
 
-ENV WEBSERVER=Apache \
-    PARANOIA=1 \
+ENV PARANOIA=1 \
     ANOMALY_INBOUND=5 \
     ANOMALY_OUTBOUND=4 \
     TIMEOUT=60 \
@@ -45,9 +44,10 @@ RUN apt-get update \
  && sed -i /etc/modsecurity.d/modsecurity.conf \
       -e 's/SecRuleEngine DetectionOnly/SecRuleEngine On/g'
 
-COPY httpd-*.conf /usr/local/apache2/conf/extra/
-COPY modsecurity.conf /etc/modsecurity.d/
-COPY docker-entrypoint.sh /
+COPY common/modsecurity.conf /etc/modsecurity.d/
+COPY 3.3-apache/conf/*.conf /usr/local/apache2/conf/extra/
+COPY 3.3-apache/docker-entrypoint.sh /
+COPY common/modsec-activate-rules.sh /
 
 EXPOSE ${PORT}
 EXPOSE 443

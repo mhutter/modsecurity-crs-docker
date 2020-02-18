@@ -25,6 +25,10 @@ or
 docker build -t owasp/modsecurity-crs .
 docker run -p 80:80 -ti -e PARANOIA=4 -e PROXY=1 --rm owasp/modsecurity-crs
 ```
+
+## Apache
+The Apache webserver is configured via the ```httpd-default.conf``` file overriding directives from the base file.
+
 ## Environment Variables
 
 The following environment variables are available to configure the CRS container:
